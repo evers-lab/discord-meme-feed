@@ -1,5 +1,7 @@
 {   
    "token": "Your Bot token from before -> KEEP SECRET!",
    "guildId": "Your Server ID -> Server->Copy Server ID",
-   "clientId": "Your Client ID from your Bot page -> General Information->'Application ID'"
+   "clientId": "Your Client ID from your Bot page -> General Information->'Application ID'",
+   "prefix": "OPTIONAL: A prefix for a bot command, for example: '!'",
+   "quoteChannelId": "ID of specific channel the bot is going to operate in -> Right-click on channel->'Copy Channel ID'"
 }

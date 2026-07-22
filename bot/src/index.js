@@ -1,8 +1,9 @@
-// Quelle:  https://discordjs.guide/legacy/app-creation/main-file
+// ### Quelle:  https://discordjs.guide/legacy/app-creation/main-file ###
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('../config.json');
-const config = require('../config.json'); 		// hinzugefuegt wegen tutorial
+const config = require('../config.json'); 		// Part of Messages-Tutorial
+// ??? Wo Unterschied { token } und config ? ???
 
 // Create a new client instance
 const client = new Client({
@@ -21,7 +22,9 @@ client.once(Events.ClientReady, (readyClient) => {
 });
 const channel = client.channels.cache.get("Your channel ID");
 
-// Quelle: https://www.xjavascript.com/blog/discord-js-get-an-array-of-all-messages-in-a-channel/
+// ######################################################################################################
+
+// ### Quelle: https://www.xjavascript.com/blog/discord-js-get-an-array-of-all-messages-in-a-channel/ ###
 /**
  * Fetches all messages from a channel by ID.
  * @param {string} channelId - ID of the channel to fetch messages from.
@@ -97,6 +100,9 @@ client.on('messageCreate', async (message) => {
 });
 //fetchAllMessages(1382315075045425296);
 
-// Quelle:  https://discordjs.guide/legacy/app-creation/main-file
+// ######################################################################################################
+
+
+// ### Quelle:  https://discordjs.guide/legacy/app-creation/main-file ###
 // Log in to Discord with your client's token
 client.login(token);
