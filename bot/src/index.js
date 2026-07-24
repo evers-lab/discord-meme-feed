@@ -52,11 +52,10 @@ async function fetchAllMessages(channelId) {
  
       allMessages.push(...messages.values());
       lastMessageId = messages.last().id; // Set "before" to the oldest message in the current batch
-	  console.log("messages: ", messages);
-	  console.log("Last Message ID: ", lastMessageId);
     }
  
     // Reverse to show oldest messages first (optional)
+    console.log("All Messages: ", allMessages);
     return allMessages.reverse();
   } catch (error) {
     console.error('Error fetching messages:', error);
@@ -65,6 +64,9 @@ async function fetchAllMessages(channelId) {
 }
 // Listen for new messages
 client.on('messageCreate', async (message) => {
+
+  console.log("Someone sent a message!", message.author.displayName, message.content);
+
   // Ignore messages from bots to prevent loops
   if (message.author.bot) return;
  
@@ -101,7 +103,6 @@ client.on('messageCreate', async (message) => {
 //fetchAllMessages(1382315075045425296);
 
 // ######################################################################################################
-
 
 // ### Quelle:  https://discordjs.guide/legacy/app-creation/main-file ###
 // Log in to Discord with your client's token
