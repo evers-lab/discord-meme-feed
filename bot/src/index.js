@@ -47,6 +47,11 @@ async function fetchAllMessages(channelId) {
     while (true) {
       const options = { limit, before: lastMessageId };
       const messages = await channel.messages.fetch(options);
+
+      //console.log("### ", messages.first().content);
+      messages.forEach(message => {
+        console.log("### ", message.author.displayName, message.content);
+      });
  
       if (messages.size === 0) break; // Exit loop if no messages are fetched
  
@@ -54,8 +59,9 @@ async function fetchAllMessages(channelId) {
       lastMessageId = messages.last().id; // Set "before" to the oldest message in the current batch
     }
  
+    //console.log("### All Messages: ", allMessages);
+
     // Reverse to show oldest messages first (optional)
-    console.log("All Messages: ", allMessages);
     return allMessages.reverse();
   } catch (error) {
     console.error('Error fetching messages:', error);
@@ -65,7 +71,7 @@ async function fetchAllMessages(channelId) {
 // Listen for new messages
 client.on('messageCreate', async (message) => {
 
-  console.log("Someone sent a message!", message.author.displayName, message.content);
+  console.log("### Someone sent a message!", message.author.displayName, message.content);
 
   // Ignore messages from bots to prevent loops
   if (message.author.bot) return;
