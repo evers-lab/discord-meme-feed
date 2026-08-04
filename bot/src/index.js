@@ -24,6 +24,19 @@ const channel = client.channels.cache.get("Your channel ID");
 
 // ######################################################################################################
 
+async function testMessage(channelId) {
+
+  // Nutzer und Text der Nachrichten als JSON speichern...
+
+  const messages = await fetchAllMessages(config.quoteChannelId);
+
+  console.log("### messages: ", messages);
+
+  return;
+}
+
+// ######################################################################################################
+
 // ### Quelle: https://www.xjavascript.com/blog/discord-js-get-an-array-of-all-messages-in-a-channel/ ###
 /**
  * Fetches all messages from a channel by ID.
@@ -48,9 +61,9 @@ async function fetchAllMessages(channelId) {
       const options = { limit, before: lastMessageId };
       const messages = await channel.messages.fetch(options);
 
-      //console.log("### ", messages.first().content);
+      //console.log("### ", messages.first().content); // DEBUG
       messages.forEach(message => {
-        console.log("### ", message.author.displayName, message.content);
+        console.log("### ", message.author.displayName, message.content); // DEBUG
       });
  
       if (messages.size === 0) break; // Exit loop if no messages are fetched
@@ -59,7 +72,7 @@ async function fetchAllMessages(channelId) {
       lastMessageId = messages.last().id; // Set "before" to the oldest message in the current batch
     }
  
-    //console.log("### All Messages: ", allMessages);
+    //console.log("### All Messages: ", allMessages); // DEBUG
 
     // Reverse to show oldest messages first (optional)
     return allMessages.reverse();
@@ -71,7 +84,7 @@ async function fetchAllMessages(channelId) {
 // Listen for new messages
 client.on('messageCreate', async (message) => {
 
-  console.log("### Someone sent a message!", message.author.displayName, message.content);
+  //console.log("### Someone sent a message!", message.author.displayName, message.content); // DEBUG
 
   // Ignore messages from bots to prevent loops
   if (message.author.bot) return;
@@ -83,7 +96,14 @@ client.on('messageCreate', async (message) => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
  
-  // Handle the !randomquote command
+  // Test command !test ########################################
+  if (command === 'test') {
+
+    testMessage("15338233074454364561533823307445436456");
+    
+  }
+
+  // Handle the !randomquote command ###########################
   if (command === 'randomquote') {
     try {
       // Fetch all messages from the target channel (from config.json)
@@ -106,7 +126,6 @@ client.on('messageCreate', async (message) => {
     }
   }
 });
-//fetchAllMessages(1382315075045425296);
 
 // ######################################################################################################
 
