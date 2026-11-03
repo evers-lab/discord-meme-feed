@@ -30,7 +30,7 @@ async function testMessage(channelId) {
 
   const messages = await fetchAllMessages(config.quoteChannelId);
 
-  console.log("### messages: ", messages);
+  //console.log("### messages: ", messages);
 
   return;
 }
@@ -63,7 +63,13 @@ async function fetchAllMessages(channelId) {
 
       //console.log("### ", messages.first().content); // DEBUG
       messages.forEach(message => {
-        console.log("### ", message.author.displayName, message.content); // DEBUG
+        const date = new Date(message.createdAt);               // Test for Date formatting :)       
+        const dateFormatted = message.createdAt.toLocaleString("de-DE", {
+          dateStyle: "short",
+          timeStyle: "short"
+        });
+
+        console.log("### ", dateFormatted, ": ", message.author.displayName,": ", "'", message.content, "'"); // DEBUG
       });
  
       if (messages.size === 0) break; // Exit loop if no messages are fetched
