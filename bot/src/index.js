@@ -28,9 +28,22 @@ async function testMessage(channelId) {
 
   // Nutzer und Text der Nachrichten als JSON speichern...
 
-  const messages = await fetchAllMessages(config.quoteChannelId);
+  const messages = await fetchAllMessages(config.quoteChannelId);       // => an Array with Message-Objects
 
-  //console.log("### messages: ", messages);
+  console.log("### messages: ", messages);
+  console.log("### length: ", messages.length);
+  console.log("### messages[0]", messages[0]);
+  console.log("### Erste Nachricht: ", messages[0].createdAt, messages[0].author.globalName, messages[0].content);
+
+  messages.forEach(message => {
+    const date = new Date(message.createdAt);               // Test for Date formatting :)       
+    const dateFormatted = message.createdAt.toLocaleString("de-DE", {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+
+    console.log("### ", dateFormatted, ": ", message.author.displayName,": ", "'", message.content, "'");
+  });
 
   return;
 }
@@ -61,7 +74,7 @@ async function fetchAllMessages(channelId) {
       const options = { limit, before: lastMessageId };
       const messages = await channel.messages.fetch(options);
 
-      //console.log("### ", messages.first().content); // DEBUG
+      //console.log("### ", messages.first().content);                                                            // DEBUG
       messages.forEach(message => {
         const date = new Date(message.createdAt);               // Test for Date formatting :)       
         const dateFormatted = message.createdAt.toLocaleString("de-DE", {
@@ -69,7 +82,7 @@ async function fetchAllMessages(channelId) {
           timeStyle: "short"
         });
 
-        console.log("### ", dateFormatted, ": ", message.author.displayName,": ", "'", message.content, "'"); // DEBUG
+        console.log("### ", dateFormatted, ": ", message.author.displayName,": ", "'", message.content, "'");     // DEBUG
       });
  
       if (messages.size === 0) break; // Exit loop if no messages are fetched
