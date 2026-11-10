@@ -119,6 +119,12 @@ client.on('messageCreate', async (message) => {
   if (command === 'test') {
 
     testMessage("15338233074454364561533823307445436456");
+
+    message.reply("Dies ist eine Testnachricht. Beep-boop.");
+
+    let messages = [];                                                        // siehe Map + Join ! #############################################
+
+    message.reply("Dies ist eine ZWEITE Testnachricht. Beep-boop.");
     
   }
 
